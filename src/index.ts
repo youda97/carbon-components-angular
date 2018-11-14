@@ -22,6 +22,7 @@ export * from "./placeholder/placeholder.module";
 export * from "./progress-indicator/progress-indicator.module";
 export * from "./radio/radio.module";
 export * from "./select/select.module";
+export * from "./structured-list/structured-list.module";
 export * from "./switch/switch.module";
 export * from "./table/table.module";
 export * from "./tabs/tabs.module";
