@@ -2,17 +2,10 @@ import {
 	Component,
 	Input,
 	Output,
-	EventEmitter,
 	ElementRef,
 	HostBinding,
-	HostListener,
-	QueryList,
-	OnInit,
-	ContentChildren,
-	forwardRef,
-	ContentChild
+	OnInit
 } from "@angular/core";
-
 
 
 /**
@@ -32,8 +25,14 @@ import {
 	`
 })
 export class StructuredList {
+	static listCount = 0;
+
 	@Input() selection = false;
 	@Input() border = false;
+
+	constructor() {
+		StructuredList.listCount++;
+	}
 }
 
 @Component({
@@ -44,88 +43,24 @@ export class StructuredListHead {
 	@HostBinding("class.bx--structured-list-thead") className = true;
 }
 
-
-
-@Component({
-	selector: "ibm-structured-list-row",
-	template: `
-		<ng-container *ngIf="label; else content">
-				<input
-				type="radio"
-				tabIndex="-1"
-				class="bx--structured-list-input"
-				[id]="id"
-				[value]="id"
-				[title]="id"
-				[checked]="checked"/>
-				<ibm-structured-list-cell>
-					<svg class="bx--structured-list-svg" width="16" height="16" viewBox="0 0 16 16">
-						<path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zm3.646-10.854L6.75 10.043 4.354 7.646l-.708.708 3.104 3.103 5.604-5.603-.708-.708z"
-							fill-rule="evenodd" />
-					</svg>
-				</ibm-structured-list-cell>
-				<ng-container *ngTemplateOutlet="content"></ng-container>
-		</ng-container>
-
-		<ng-template #content>
-			<ng-content></ng-content>
-		</ng-template>
-	`
-})
-export class StructuredListRow {
-	static rowCount = 0;
-
-	tabIndex = 0;
-	@Input() label = false;
-	@Input() head = false;
-	@Input() checked = false;
-	@Input() id = `row-${StructuredListRow.rowCount}`;
-	// @Input() name;
-	@Input() defaultChecked = false;
-
-	@HostBinding("class.bx--structured-list-row") rowClass = true;
-	@HostBinding("class.bx--structured-list-row--header-row") get headerClass() {
-		return this.head;
-	}
-
-	@HostBinding("class.bx--structured-list-row--selected") get selectedClass() {
-		return this.checked;
-	}
-
-	constructor(private elementRef: ElementRef) {
-		StructuredListRow.rowCount++;
-	}
-
-	// @HostListener("click", ["$event"])
-	// clickClose() {
-	// 	this.checked = !this.checked;
-	// }
-}
-
-
 @Component({
 	selector: "ibm-structured-list-body",
 	template: `<ng-content></ng-content>`
 })
-export class StructuredListBody implements OnInit {
+export class StructuredListBody {
 	@HostBinding("class.bx--structured-list-tbody") className = true;
-
-	public rows: QueryList<StructuredListRow>;
-
-	// tslint:disable-next-line:no-forward-ref
-	@ContentChildren(forwardRef(() => StructuredListRow)) list: QueryList<StructuredListRow>;
-
-	@ContentChildren(StructuredListRow) structuredListRow: QueryList<StructuredListRow>;
-
-	@ContentChildren(StructuredListRow, {read: ElementRef}) children: QueryList<ElementRef>;
-
-
-	ngOnInit() {
-		console.log(this.children);
-	}
-
 }
 
+@Component({
+	selector: "ibm-structured-list-row",
+	template: `<ng-content></ng-content>`
+})
+export class StructuredListRow {
+	@Input() @HostBinding("class.bx--structured-list-row--header-row") head = false;
+
+	@HostBinding("tabIndex") tabindex = -1;
+	@HostBinding("class.bx--structured-list-row") rowClass = true;
+}
 
 @Component({
 	selector: "ibm-structured-list-cell",
@@ -146,9 +81,23 @@ export class StructuredListCell {
 @Component({
 	selector: "ibm-structured-list-input",
 	template: `
-
+		<input tabindex="-1" class="bx--structured-list-input" [value]="id" type="radio" [name]="name" [title]="id" [checked]="checked"/>
+		<ibm-structured-list-cell>
+			<svg class="bx--structured-list-svg" width="16" height="16" viewBox="0 0 16 16">
+				<path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zm3.646-10.854L6.75 10.043 4.354 7.646l-.708.708 3.104 3.103 5.604-5.603-.708-.708z"
+					fill-rule="evenodd" />
+			</svg>
+		</ibm-structured-list-cell>
 	`
 })
 export class StructuredListInput {
+	static rowCount = 0;
+	@Input() id = `row-${StructuredListInput.rowCount}`;
+	@Input() name = `list-${StructuredList.listCount}`;
 
+	@Input() checked = false;
+
+	constructor(private elementRef: ElementRef) {
+		StructuredListInput.rowCount++;
+	}
 }

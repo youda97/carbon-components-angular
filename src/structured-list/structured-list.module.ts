@@ -10,6 +10,8 @@ import {
 	StructuredListInput
 } from "./structured-list.component";
 
+import { StructuredListRowDirective } from "./structured-list.directive";
+
 export {
 	StructuredList,
 	StructuredListHead,
@@ -19,6 +21,10 @@ export {
 	StructuredListInput
 } from "./structured-list.component";
 
+export { StructuredListRowDirective } from "./structured-list.directive";
+
+
+
 @NgModule({
 	declarations: [
 		StructuredList,
@@ -26,7 +32,8 @@ export {
 		StructuredListRow,
 		StructuredListBody,
 		StructuredListCell,
-		StructuredListInput
+		StructuredListInput,
+		StructuredListRowDirective
 	],
 	exports: [
 		StructuredList,
@@ -34,7 +41,8 @@ export {
 		StructuredListRow,
 		StructuredListBody,
 		StructuredListCell,
-		StructuredListInput
+		StructuredListInput,
+		StructuredListRowDirective
 	],
 	imports: [CommonModule]
 })
