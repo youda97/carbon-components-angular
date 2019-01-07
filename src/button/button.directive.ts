@@ -24,7 +24,7 @@ export class Button implements OnInit {
 	/**
 	 * sets the button type
 	 */
-	@Input() ibmButton: "primary" | "secondary" | "tertiary" | "ghost" | "danger" | "danger--primary" = "primary";
+	@Input() ibmButton: "primary" | "secondary" | "tertiary" | "ghost" | "danger" | "danger--primary" | "skeleton" = "primary";
 	/**
 	 * Specify the size of the button
 	 */
@@ -32,6 +32,7 @@ export class Button implements OnInit {
 	// a whole lot of HostBindings ... this way we don't have to touch the elementRef directly
 	@HostBinding("class.bx--btn") baseClass = true;
 	@HostBinding("class.bx--btn--primary") primary = true;
+	@HostBinding("class.bx--skeleton") skeleton = false;
 	@HostBinding("class.bx--btn--secondary") secondary = false;
 	@HostBinding("class.bx--btn--tertiary") tertiary = false;
 	@HostBinding("class.bx--btn--ghost") ghost = false;
@@ -46,6 +47,7 @@ export class Button implements OnInit {
 		this.primary = false;
 		switch (this.ibmButton) {
 			case "primary": this.primary = true; break;
+			case "skeleton": this.skeleton = true; break;
 			case "secondary": this.secondary = true; break;
 			case "tertiary": this.tertiary = true; break;
 			case "ghost": this.ghost = true; break;
