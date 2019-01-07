@@ -57,4 +57,13 @@ storiesOf("Breadcrumb", module)
 		threshold: number("threshold", 4),
 		items: createBreadcrumbItems
 	}
+}))
+.add("Skeleton", () => ({
+	template: `
+	<ibm-breadcrumb skeleton="true">
+		<ibm-breadcrumb-item></ibm-breadcrumb-item>
+		<ibm-breadcrumb-item></ibm-breadcrumb-item>
+		<ibm-breadcrumb-item></ibm-breadcrumb-item>
+		<ibm-breadcrumb-item></ibm-breadcrumb-item>
+	</ibm-breadcrumb>`
 }));
