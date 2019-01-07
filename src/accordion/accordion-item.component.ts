@@ -25,12 +25,12 @@ import {
 			<p *ngIf="!skeleton" class="bx--accordion__title">{{title}}</p>
 		</button>
 		<div [id]="id" class="bx--accordion__content">
-			<ng-container *ngIf="skeleton">
+			<ng-content *ngIf="!skeleton; else skeletonTemp"></ng-content>
+			<ng-template #skeletonTemp>
 				<p class="bx--skeleton__text" style="width: 90%"></p>
 				<p class="bx--skeleton__text" style="width: 80%"></p>
 				<p class="bx--skeleton__text" style="width: 95%"></p>
-			</ng-container>
-			<ng-content *ngIf="!skeleton"></ng-content>
+			</ng-template>
 		</div>
 	`
 })
