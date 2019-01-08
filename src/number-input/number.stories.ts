@@ -29,4 +29,12 @@ storiesOf("Number", module).addDecorator(
 			max: number("max", 100),
 			disabled: boolean("disabled", false)
 		}
+	}))
+	.add("Skeleton", () => ({
+		template: `
+			<ibm-number [label]="label" skeleton="true"></ibm-number>
+		`,
+		props: {
+			label: text("label", "Number Input Label")
+		}
 	}));
