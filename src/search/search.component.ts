@@ -217,6 +217,10 @@ export class Search implements ControlValueAccessor {
 	 */
 	clearSearch(): void {
 		this.value = "";
+<<<<<<< HEAD
+=======
+		this.propagateChange(this.value);
+>>>>>>> 740c33f061e58fc91d2d6761403ff77bab3d0c3e
 		this.emitChangeEvent();
 	}
 
