@@ -67,9 +67,9 @@ storiesOf("Notification", module)
 	.addDecorator(withKnobs)
 	.add("Basic", () => ({
 		template: `
-			<ibm-notification [notificationObj]="{type: 'error', title: 'Sample notification', message: 'Sample error message'}">
-			</ibm-notification>
 			<ibm-notification [notificationObj]="{type: 'info', title: 'Sample notification', message: 'Sample info message'}">
+			</ibm-notification>
+			<ibm-notification [notificationObj]="{type: 'error', title: 'Sample notification', message: 'Sample error message'}">
 			</ibm-notification>
 			<ibm-notification [notificationObj]="{type: 'success', title: 'Sample notification', message: 'Sample success message'}">
 			</ibm-notification>
@@ -85,7 +85,25 @@ storiesOf("Notification", module)
 	.add("Toast", () => ({
 		template: `
 			<ibm-toast [notificationObj]="{
+				type: 'info',
+				title: 'Sample toast',
+				subtitle: 'Sample subtitle message',
+				caption: 'Sample caption'
+			}"></ibm-toast>
+			<ibm-toast [notificationObj]="{
 				type: 'error',
+				title: 'Sample toast',
+				subtitle: 'Sample subtitle message',
+				caption: 'Sample caption'
+			}"></ibm-toast>
+			<ibm-toast [notificationObj]="{
+				type: 'success',
+				title: 'Sample toast',
+				subtitle: 'Sample subtitle message',
+				caption: 'Sample caption'
+			}"></ibm-toast>
+			<ibm-toast [notificationObj]="{
+				type: 'warning',
 				title: 'Sample toast',
 				subtitle: 'Sample subtitle message',
 				caption: 'Sample caption'
