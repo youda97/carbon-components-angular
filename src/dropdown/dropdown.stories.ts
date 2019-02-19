@@ -19,6 +19,7 @@ storiesOf("Dropdown", module)
 		<div style="width: 300px">
 			<ibm-dropdown
 				[theme]="theme"
+				[inline]="inline"
 				placeholder="Select"
 				[disabled]="disabled"
 				(selected)="selected($event)"
@@ -29,6 +30,7 @@ storiesOf("Dropdown", module)
 	`,
 		props: {
 			disabled: boolean("disabled", false),
+			inline: boolean("inline", false),
 			items: object("items", [
 				{ content: "one" },
 				{ content: "two" },
@@ -45,6 +47,8 @@ storiesOf("Dropdown", module)
 		<div style="width: 300px">
 			<ibm-dropdown
 				type="multi"
+				[theme]="theme"
+				[inline]="inline"
 				placeholder="Multi-select"
 				[disabled]="disabled"
 				(selected)="selected($event)"
@@ -55,6 +59,7 @@ storiesOf("Dropdown", module)
 	`,
 		props: {
 			disabled: boolean("disabled", false),
+			inline: boolean("inline", false),
 			items: object("items", [
 				{ content: "one" },
 				{ content: "two" },
@@ -62,7 +67,8 @@ storiesOf("Dropdown", module)
 				{ content: "four" }
 			]),
 			selected: action("Selected fired for multi-select dropdown"),
-			onClose: action("Multi-select dropdown closed")
+			onClose: action("Multi-select dropdown closed"),
+			theme: select("theme", ["dark", "light"], "dark")
 		}
 	})))
 	.add("With ngModel", () => ({
