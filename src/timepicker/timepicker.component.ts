@@ -9,15 +9,16 @@ import {
 @Component({
 	selector: "ibm-timepicker",
 	template: `
+		<label *ngIf="!skeleton" [attr.for]="id" class="bx--label">{{label}}</label>
+		<div class="bx--time-picker" [attr.data-invalid]="(invalid ? '' : null)">
 			<div
 				[ngClass]="{
 					'bx--select--light': theme === 'light',
 					'bx--skeleton': skeleton
 				}"
 				class="bx--time-picker__input">
-				<label *ngIf="!skeleton" [attr.for]="id" class="bx--label">{{label}}</label>
 				<input
-					[value]="value"
+					[value]="(value ? value : null)"
 					[placeholder]="placeholder"
 					[pattern]="pattern"
 					[attr.id]="id"
@@ -25,9 +26,14 @@ import {
 					maxlength="5"
 					(change)="onChange($event)"
 					type="text"
-					class="bx--time-picker__input-field bx--text-input">
+					class="bx--time-picker__input-field bx--text-input"
+					[ngClass]="{ 'bx--text-input--light': theme === 'light' }">
 			</div>
 			<ng-content></ng-content>
+		</div>
+		<div *ngIf="invalid" class="bx--form-requirement">
+			{{invalidText}}
+		</div>
 	`
 })
 export class TimePicker {
@@ -36,14 +42,17 @@ export class TimePicker {
 	 */
 	static timePickerCount = 0;
 
-	@HostBinding("class.bx--time-picker") timePicker = true;
+	@HostBinding("class.bx--form-item") timePicker = true;
 
 	@Input() label;
+	@Input() theme: "light" | "dark" = "dark";
 	@Input() placeholder = "hh:mm";
 	@Input() pattern = "(1[012]|[0-9]):[0-5][0-9]";
 	@Input() id = `timepicker-${TimePicker.timePickerCount++}`;
 	@Input() disabled = false;
+	@Input() invalid = false;
 	@Input() value: string;
+	@Input() invalidText: string;
 
 	@Output() valueChange: EventEmitter<string> = new EventEmitter();
 
