@@ -62,7 +62,7 @@ import { BaseModal } from "./base-modal.class";
 						ibmButton="{{button.type}}"
 						(click)="buttonClicked(i)"
 						[id]="button.id"
-						[attr.modal-primary-focus]="(button.type.indexOf('primary') !== -1 ? '' : null)">
+						[attr.modal-primary-focus]="(button.type.indexOf('primary') !== -1 || button.primaryFocus ? '' : null)">
 						{{button.text}}
 					</button>
 				</ng-container>

@@ -68,4 +68,8 @@ export interface ModalButton {
 	 * Callback for the button `click` event
 	 */
 	click?: Function;
+	/**
+	 * Sets the button as the primary focus
+	 */
+	primaryFocus?: boolean;
 }
