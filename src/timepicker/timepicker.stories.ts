@@ -2,8 +2,13 @@ import { action } from "@storybook/addon-actions";
 import { TimePickerSelectModule } from "../timepicker-select/timepicker-select.module";
 import { TimePickerModule } from "./timepicker.module";
 import { storiesOf, moduleMetadata } from "@storybook/angular";
-import { withKnobs, boolean, text, select } from "@storybook/addon-knobs/angular";
-import { ExperimentalModule } from "..";
+import {
+	withKnobs,
+	boolean,
+	text,
+	select
+} from "@storybook/addon-knobs/angular";
+import { ExperimentalModule, DocumentationModule } from "../";
 
 storiesOf("Time Picker", module)
 	.addDecorator(
@@ -11,7 +16,8 @@ storiesOf("Time Picker", module)
 			imports: [
 				TimePickerModule,
 				ExperimentalModule,
-				TimePickerSelectModule
+				TimePickerSelectModule,
+				DocumentationModule
 			]
 		})
 	)
@@ -24,13 +30,14 @@ storiesOf("Time Picker", module)
 			[invalid]="invalid"
 			[invalidText]="invalidText"
 			[placeholder]="placeholder"
+			[value]="value"
 			[disabled]="disableTime"
 			[label]="label">
-			<ibm-timepicker-select (valueChange)="timePickerSelectChange($event)" [disabled]="disabledSelect" display="inline">
+			<ibm-timepicker-select (valueChange)="timePickerSelectChange($event)" [theme]="theme" [disabled]="disabledSelect" display="inline">
 				<option selected value="AM">AM</option>
 				<option value="PM">PM</option>
 			</ibm-timepicker-select>
-			<ibm-timepicker-select (valueChange)="timePickerSelectChange($event)" [disabled]="disabledSelect" display="inline">
+			<ibm-timepicker-select [theme]="theme" (valueChange)="timePickerSelectChange($event)" [disabled]="disabledSelect" display="inline">
 				<option selected value="Time Zone 1">Time Zone 1</option>
 				<option value="Time Zone 2">Time Zone 2</option>
 			</ibm-timepicker-select>
@@ -48,4 +55,9 @@ storiesOf("Time Picker", module)
 			label: text("Label text", "select a time"),
 			placeholder: text("Placeholder text", "hh:mm")
 		}
+	}))
+	.add("Documentation", () => ({
+		template: `
+			<ibm-documentation src="documentation/components/TimePicker.html"></ibm-documentation>
+		`
 	}));

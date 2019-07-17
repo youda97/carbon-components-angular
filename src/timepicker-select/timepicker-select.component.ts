@@ -1,6 +1,22 @@
-import { Component, Input, ChangeDetectorRef, Output, EventEmitter, HostBinding } from "@angular/core";
+import {
+	Component,
+	Input,
+	Output,
+	EventEmitter,
+	HostBinding,
+	TemplateRef
+} from "@angular/core";
 import { Select } from "../select/select.component";
 
+/**
+ * [See demo](../../?path=/story/time-picker-select--simple)
+ *
+ * <example-url>../../iframe.html?id=time-picker-select--simple</example-url>
+ *
+ * @export
+ * @class TimePickerSelect
+ * @extends {Select}
+ */
 @Component({
 	selector: "ibm-timepicker-select",
 	template: `
@@ -20,15 +36,29 @@ export class TimePickerSelect extends Select {
 	@HostBinding("class.bx--select") timeSelect = true;
 	@HostBinding("class.bx--time-picker__select") timePickerSelect = true;
 
-	@HostBinding("class.bx--skeleton") timePickerSelectSkeleton = this.skeleton;
-	@HostBinding("class.bx--select--light") timePickerSelectLight = (true ? this.theme === "light" : false);
-
 	@Input() id = `timepicker-select-${TimePickerSelect.selectCount++}`;
+
+	/**
+	 * Set to true for a loading select.
+	 */
+	@Input() skeleton = false;
+
+	/**
+	 * `light` or `dark` select theme
+	 */
+	@Input() theme: "light" | "dark" = "dark";
+
+	@Input() label: string;
+
+	@HostBinding("class.bx--skeleton") timePickerSelectSkeleton = this.skeleton;
+
+	@HostBinding("class.bx--select--light") get timePickerSelectLight() {
+		return this.theme === "light";
+	}
 
 	@Output() valueChange: EventEmitter<string> = new EventEmitter();
 
 	onChange(event) {
 		this.valueChange.emit(event.target.value);
-		console.log(this.theme);
 	}
 }

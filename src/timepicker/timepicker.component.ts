@@ -3,21 +3,32 @@ import {
 	Input,
 	Output,
 	EventEmitter,
-	HostBinding
+	HostBinding,
+	TemplateRef
 } from "@angular/core";
 
+/**
+ * [See demo](../../?path=/story/time-picker--simple)
+ *
+ * <example-url>../../iframe.html?id=time-picker--simple</example-url>
+ *
+ * @export
+ * @class TimePicker
+ */
 @Component({
 	selector: "ibm-timepicker",
 	template: `
-		<label *ngIf="!skeleton" [attr.for]="id" class="bx--label">{{label}}</label>
 		<div class="bx--time-picker" [attr.data-invalid]="(invalid ? '' : null)">
-			<div
-				[ngClass]="{
-					'bx--select--light': theme === 'light',
-					'bx--skeleton': skeleton
-				}"
-				class="bx--time-picker__input">
+			<div class="bx--time-picker__input">
+				<label *ngIf="!skeleton" [for]="id" class="bx--label">
+					<ng-container *ngIf="!isTemplate(label)">{{label}}</ng-container>
+					<ng-template *ngIf="isTemplate(label)" [ngTemplateOutlet]="label"></ng-template>
+				</label>
 				<input
+					[ngClass]="{
+						'bx--select--light': theme === 'light',
+						'bx--skeleton': skeleton
+					}"
 					[value]="(value ? value : null)"
 					[placeholder]="placeholder"
 					[pattern]="pattern"
@@ -44,8 +55,7 @@ export class TimePicker {
 
 	@HostBinding("class.bx--form-item") timePicker = true;
 
-	@Input() label;
-	@Input() theme: "light" | "dark" = "dark";
+	@Input() label: string | TemplateRef<any>;
 	@Input() placeholder = "hh:mm";
 	@Input() pattern = "(1[012]|[0-9]):[0-5][0-9]";
 	@Input() id = `timepicker-${TimePicker.timePickerCount++}`;
@@ -54,9 +64,23 @@ export class TimePicker {
 	@Input() value: string;
 	@Input() invalidText: string;
 
+	/**
+	 * Set to true for a loading select.
+	 */
+	@Input() skeleton = false;
+
+	/**
+	 * `light` or `dark` select theme
+	 */
+	@Input() theme: "light" | "dark" = "dark";
+
 	@Output() valueChange: EventEmitter<string> = new EventEmitter();
 
 	onChange(event) {
 		this.valueChange.emit(event.target.value);
+	}
+
+	public isTemplate(value) {
+		return value instanceof TemplateRef;
 	}
 }
