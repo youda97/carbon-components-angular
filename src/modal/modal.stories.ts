@@ -3,7 +3,7 @@ import { withKnobs, text, select } from "@storybook/addon-knobs/angular";
 import { ModalModule, InputModule, ButtonModule } from "../";
 import { Component, Input, Inject, AfterContentInit } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { Modal, ModalService } from "../";
+import { Modal, ModalService, DocumentationModule } from "../";
 import { ModalButton, AlertModalType, ModalButtonType } from "./alert-modal.interface";
 import { PlaceholderModule } from "./../placeholder/placeholder.module";
 import { BaseModal } from "./base-modal.class";
@@ -148,7 +148,8 @@ storiesOf("Modal", module)
 				PlaceholderModule,
 				InputModule,
 				ButtonModule,
-				BrowserAnimationsModule
+				BrowserAnimationsModule,
+				DocumentationModule
 			],
 			entryComponents: [
 				SampleModal
@@ -206,4 +207,9 @@ storiesOf("Modal", module)
 			heading: text("Heading", "Modal heading"),
 			inputLabel: text("Input label", "Text Input Label")
 		}
+	}))
+	.add("Documentation", () => ({
+		template: `
+			<ibm-documentation src="documentation/components/Modal.html"></ibm-documentation>
+		`
 	}));
