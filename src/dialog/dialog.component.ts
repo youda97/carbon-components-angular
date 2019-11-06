@@ -226,7 +226,8 @@ export class Dialog implements OnInit, AfterViewInit, OnDestroy {
 	@HostListener("document:click", ["$event"])
 	clickClose(event) {
 		if (!this.elementRef.nativeElement.contains(event.target)
-			&& !this.dialogConfig.parentRef.nativeElement.contains(event.target) ) {
+			&& !this.dialogConfig.parentRef.nativeElement.contains(event.target)
+			&& !document.querySelector(".flatpickr-calendar.open").contains(event.target)) {
 			this.doClose();
 		}
 	}
